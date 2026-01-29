@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pikiran Sehat - Edukasi PMO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+        }
+        .page {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        .page.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .progress-ring__circle {
+            transition: stroke-dashoffset 0.5s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+        .streak-fire {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .motivation-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-left: 4px solid #4f46e5;
+        }
+        .emergency-btn {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+        .challenge-complete {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        .breathing-animation {
+            animation: breathe 4s infinite alternate;
+        }
+        @keyframes breathe {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.2); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- Loading Screen -->
+    <div id="loading" class="fixed inset-0 bg-white z-50 flex flex-col items-center justify-center">
+        <div class="w-16 h-16 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mb-4"></div>
+        <p class="text-gray-600">Memuat Pikiran Sehat...</p>
+    </div>
+
+    <!-- Navigation for Desktop -->
+    <nav id="desktop-nav" class="hidden md:flex bg-white shadow-sm p-4 justify-between items-center sticky top-0 z-30">
+        <div class="flex items-center">
+            <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center mr-3">
+                <i class="fas fa-brain text-white"></i>
+            </div>
+            <h1 class="text-xl font-bold text-gray-800">Pikiran Sehat</h1>
+        </div>
+        <div class="flex space-x-6">
+            <button onclick="showPage('dashboard')" class="nav-btn text-gray-600 hover:text-indigo-600">Dashboard</button>
+            <button onclick="showPage('education')" class="nav-btn text-gray-600 hover:text-indigo-600">Edukasi</button>
+            <button onclick="showPage('guide')" class="nav-btn text-gray-600 hover:text-indigo-600">Panduan</button>
+            <button onclick="showPage('challenge')" class="nav-btn text-gray-600 hover:text-indigo-600">Challenge</button>
+            <button onclick="showPage('help')" class="nav-btn text-gray-600 hover:text-indigo-600">Bantuan</button>
+            <button onclick="logout()" class="text-gray-600 hover:text-red-600">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="max-w-7xl mx-auto px-4 py-6">
+        <!-- Landing Page -->
+        <div id="landing" class="page active min-h-screen flex flex-col justify-center">
+            <div class="max-w-3xl mx-auto text-center px-4">
+                <div class="w-20 h-20 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-seedling text-indigo-600 text-3xl"></i>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                    Mengelola Kebiasaan, <span class="text-indigo-600">Memperkuat Pikiran</span>
+                </h1>
+                <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+                    Website edukasi untuk memahami pengaruh kebiasaan tertentu terhadap kesehatan mental, fokus, dan motivasi. Pendekatan berbasis psikologi tanpa penghakiman.
+                </p>
+                <div class="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-8 text-left">
+                    <div class="flex items-start">
+                        <i class="fas fa-info-circle text-blue-500 text-xl mt-1 mr-3"></i>
+                        <div>
+                            <h3 class="font-semibold text-blue-800 mb-2">Informasi Penting</h3>
+                            <p class="text-blue-700">Website ini <span class="font-semibold">tidak mengandung konten seksual</span> dan berfokus pada edukasi kesehatan mental, kontrol diri, dan pembentukan kebiasaan positif.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-4 mb-10">
+                    <div class="flex items-center justify-center">
+                        <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                        <span>Pendekatan berbasis psikologi & neuroscience</span>
+                    </div>
+                    <div class="flex items-center justify-center">
+                        <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                        <span>Tanpa penghakiman atau konten eksplisit</span>
+                    </div>
+                    <div class="flex items-center justify-center">
+                        <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                        <span>Fokus pada pembentukan kebiasaan positif</span>
+                    </div>
+                </div>
+                <button onclick="startJourney()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-8 rounded-lg text-lg transition duration-300 transform hover:scale-105 shadow-lg">
+                    Mulai Perjalanan <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Authentication Page -->
+        <div id="auth" class="page hidden min-h-screen flex flex-col justify-center">
+            <div class="max-w-md mx-auto w-full px-4">
+                <div class="bg-white rounded-2xl shadow-lg p-8">
+                    <div class="text-center mb-8">
+                        <div class="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-user-plus text-indigo-600 text-2xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-900">Mulai Perjalananmu</h2>
+                        <p class="text-gray-600 mt-2">Masukkan nama atau nickname untuk mulai</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-gray-700 mb-2">Nama / Nickname</label>
+                            <input type="text" id="username" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" placeholder="Nama panggilanmu">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2">Umur (Opsional)</label>
+                            <select id="age" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                                <option value="">Pilih rentang umur</option>
+                                <option value="13-17">13-17 tahun</option>
+                                <option value="18-24">18-24 tahun</option>
+                                <option value="25-30">25-30 tahun</option>
+                                <option value="30+">30+ tahun</option>
+                            </select>
+                        </div>
+                        <div class="pt-4">
+                            <p class="text-sm text-gray-500 mb-4">
+                                <i class="fas fa-lock mr-1"></i> Data disimpan secara lokal di perangkat Anda. Tidak ada data yang dikirim ke server.
+                            </p>
+                            <button onclick="registerUser()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition duration-200">
+                                Mulai Perjalanan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Page -->
+        <div id="dashboard" class="page hidden">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">Dashboard</h2>
+                <p class="text-gray-600">Pantau perkembangan dan motivasi harian Anda</p>
+            </div>
+
+            <!-- Stats Row -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <!-- Streak Card -->
+                <div class="bg-white rounded-xl shadow p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-bold text-gray-800">Streak Hari Bersih</h3>
+                        <i class="fas fa-fire text-orange-500 streak-fire text-xl"></i>
+                    </div>
+                    <div class="text-center">
+                        <div class="inline-block relative">
+                            <svg class="w-32 h-32">
+                                <circle class="text-gray-200" stroke-width="10" stroke="currentColor" fill="transparent" r="56" cx="64" cy="64"/>
+                                <circle class="text-green-500 progress-ring__circle" stroke-width="10" stroke-linecap="round" stroke="currentColor" fill="transparent" r="56" cx="64" cy="64"
+                                    stroke-dasharray="352" stroke-dashoffset="0"/>
+                            </svg>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                <span id="streak-days" class="text-3xl font-bold text-gray-900">0</span>
+                                <span class="text-gray-600 text-sm">hari</span>
+                            </div>
+                        </div>
+                        <p class="mt-4 text-gray-600">Terus pertahankan konsistensi!</p>
+                    </div>
+                </div>
+
+                <!-- Progress Card -->
+                <div class="bg-white rounded-xl shadow p-6">
+                    <h3 class="font-bold text-gray-800 mb-4">Progress 30 Hari</h3>
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-1">
+                            <span class="text-gray-600">Progress</span>
+                            <span id="progress-percent" class="font-bold text-indigo-600">0%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div id="progress-bar" class="bg-indigo-600 h-2.5 rounded-full" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="text-center p-3 bg-blue-50 rounded-lg">
+                            <div class="text-2xl font-bold text-blue-700" id="total-days">0</div>
+                            <div class="text-sm text-blue-600">Total Hari</div>
+                        </div>
+                        <div class="text-center p-3 bg-green-50 rounded-lg">
+                            <div class="text-2xl font-bold text-green-700" id="clean-days">0</div>
+                            <div class="text-sm text-green-600">Hari Bersih</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Emergency Button Card -->
+                <div class="bg-white rounded-xl shadow p-6 flex flex-col">
+                    <h3 class="font-bold text-gray-800 mb-4">Tombol Darurat</h3>
+                    <p class="text-gray-600 mb-6 text-sm">Gunakan saat dorongan muncul untuk mendapatkan bantuan segera</p>
+                    <button onclick="showEmergencyHelp()" class="emergency-btn text-white font-bold py-4 rounded-xl text-lg mt-auto transition duration-300 hover:scale-105">
+                        <i class="fas fa-life-ring mr-2"></i> BANTUAN DARURAT
+                    </button>
+                </div>
+            </div>
+
+            <!-- Motivation & Notes -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Motivation Card -->
+                <div class="motivation-card rounded-xl p-6">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-quote-left text-indigo-500 text-2xl mr-3"></i>
+                        <h3 class="font-bold text-gray-800">Motivasi Hari Ini</h3>
+                    </div>
+                    <p id="daily-motivation" class="text-gray-700 text-lg italic mb-4">
+                        "Konsistensi dalam perubahan kecil menghasilkan transformasi besar dalam hidup."
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500" id="motivation-date"></span>
+                        <button onclick="newMotivation()" class="text-indigo-600 hover:text-indigo-800">
+                            <i class="fas fa-redo mr-1"></i> Motivasi Baru
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quick Notes -->
+                <div class="bg-white rounded-xl shadow p-6">
+                    <h3 class="font-bold text-gray-800 mb-4">Catatan Refleksi Hari Ini</h3>
+                    <textarea id="daily-reflection" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none mb-4" placeholder="Bagaimana perasaan Anda hari ini? Apa pemicu yang Anda alami?"></textarea>
+                    <div class="flex justify-between">
+                        <button onclick="saveReflection()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg">
+                            <i class="fas fa-save mr-1"></i> Simpan
+                        </button>
+                        <button onclick="viewReflections()" class="border border-indigo-600 text-indigo-600 hover:bg-indigo-50 px-4 py-2 rounded-lg">
+                            <i class="fas fa-history mr-1"></i> Lihat Riwayat
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Education Page -->
+        <div id="education" class="page hidden">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">Pemahaman Tentang Kebiasaan</h2>
+                <p class="text-gray-600">Edukasi berbasis psikologi dan neuroscience</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
+                <div class="p-6">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mr-4">
+                            <i class="fas fa-brain text-indigo-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Apa Itu PMO dari Sudut Pandang Ilmiah?</h3>
+                            <p class="text-gray-600">Memahami mekanisme otak dan kebiasaan</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="border-l-4 border-blue-500 pl-4 py-2">
+                            <h4 class="font-bold text-gray-800 mb-2">Sistem Dopamin Otak</h4>
+                            <p class="text-gray-700">Otak kita memiliki sistem reward yang melepaskan dopamin saat melakukan aktivitas yang dianggap menyenangkan. Aktivitas berulang dapat menguatkan sirkuit saraf tertentu, menciptakan pola kebiasaan.</p>
+                        </div>
+                        
+                        <div class="border-l-4 border-green-500 pl-4 py-2">
+                            <h4 class="font-bold text-gray-800 mb-2">Kebiasaan vs Kecanduan</h4>
+                            <p class="text-gray-700">Kebiasaan adalah pola perilaku otomatis yang terbentuk dari pengulangan. Kecanduan terjadi ketika kebiasaan mengganggu fungsi sehari-hari dan sulit dikontrol meski ada konsekuensi negatif.</p>
+                        </div>
+                        
+                        <div class="border-l-4 border-purple-500 pl-4 py-2">
+                            <h4 class="font-bold text-gray-800 mb-2">Bukan Kegagalan Moral</h4>
+                            <p class="text-gray-700">Memiliki kebiasaan yang ingin diubah bukanlah kegagalan moral atau kelemahan karakter. Ini adalah hasil dari pola pembelajaran otak yang dapat diubah dengan strategi yang tepat.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Impact Cards -->
+            <h3 class="text-xl font-bold text-gray-900 mb-4">Dampak Terhadap Kesehatan Mental</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-white rounded-xl shadow p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-bolt text-red-600"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-800">Dampak Jangka Pendek</h4>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-red-500 text-xs mt-2 mr-3"></i>
+                            <span class="text-gray-700">Penurunan fokus dan konsentrasi setelahnya</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-red-500 text-xs mt-2 mr-3"></i>
+                            <span class="text-gray-700">Perasaan bersalah atau malu</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-red-500 text-xs mt-2 mr-3"></i>
+                            <span class="text-gray-700">Kehilangan motivasi untuk aktivitas produktif</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-red-500 text-xs mt-2 mr-3"></i>
+                            <span class="text-gray-700">Gangguan pola tidur</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-chart-line text-orange-600"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-800">Dampak Jangka Panjang</h4>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-orange-500 text-xs mt-2 mr-3"></i>
+                            <span class="text-gray-700">Kesulitan membangun hubungan intim yang sehat</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-orange-500 text-xs mt-2 mr-3"></i>
+                            <span class="text-gray-700">Penurunan kepuasan dalam aktivitas sehari-hari</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-orange-500 text-xs mt-2 mr-3"></i>
+                            <span class="text-gray-700">Gangguan pengaturan emosi</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-orange-500 text-xs mt-2 mr-3"></i>
+                            <span class="text-gray-700">Ekspektasi tidak realistis tentang hubungan</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Neuroscience Explanation -->
+            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 mb-8">
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Neuroplastisitas: Otak Dapat Berubah</h3>
+                <p class="text-gray-700 mb-4">
+                    Otak memiliki kemampuan yang disebut neuroplastisitas - kemampuan untuk membentuk koneksi saraf baru sepanjang hidup. 
+                    Setiap kali Anda memilih respons yang berbeda terhadap dorongan, Anda memperkuat jalur saraf baru.
+                </p>
+                <div class="flex items-center text-blue-700">
+                    <i class="fas fa-lightbulb text-xl mr-2"></i>
+                    <span class="font-semibold">Fakta Positif: Butuh 21-66 hari untuk membentuk kebiasaan baru secara konsisten</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Guide Page -->
+        <div id="guide" class="page hidden">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">Panduan Perubahan Kebiasaan</h2>
+                <p class="text-gray-600">Strategi bertahap berdasarkan psikologi perilaku</p>
+            </div>
+
+            <!-- Step by Step Guide -->
+            <div class="space-y-8">
+                <!-- Step 1 -->
+                <div class="bg-white rounded-xl shadow p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="w-10 h-10 bg-blue-600 text-white rounded-lg flex items-center justify-center font-bold mr-4">1</div>
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900">Kesadaran Diri & Pencatatan</h3>
+                            <p class="text-gray-600">Langkah pertama memahami pola Anda</p>
+                        </div>
+                    </div>
+                    <div class="ml-14">
+                        <p class="text-gray-700 mb-3">Identifikasi pemicu (trigger) yang biasanya mendahului kebiasaan. Pemicu bisa berupa:</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                            <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                                <i class="fas fa-moon text-blue-600 mr-3"></i>
+                                <span>Waktu tertentu (malam, pagi)</span>
+                            </div>
+                            <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                                <i class="fas fa-smile text-blue-600 mr-3"></i>
+                                <span>Emosi (stres, bosan, kesepian)</span>
+                            </div>
+                            <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                                <i class="fas fa-couch text-blue-600 mr-3"></i>
+                                <span>Lokasi (kamar, kamar mandi)</span>
+                            </div>
+                            <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                                <i class="fas fa-mobile-alt text-blue-600 mr-3"></i>
+                                <span>Aktivitas (berselancar internet)</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-700">Gunakan fitur <strong>Catatan Refleksi</strong> di Dashboard untuk mencatat pengamatan Anda.</p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="bg-white rounded-xl shadow p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="w-10 h-10 bg-green-600 text-white rounded-lg flex items-center justify-center font-bold mr-4">2</div>
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900">Pengaturan Lingkungan</h3>
+                            <p class="text-gray-600">Buat lingkungan yang mendukung perubahan</p>
+                        </div>
+                    </div>
+                    <div class="ml-14">
+                        <p class="text-gray-700 mb-3">Kurangi paparan terhadap pemicu dengan mengatur lingkungan Anda:</p>
+                        <ul class="space-y-3 mb-4">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span class="text-gray-700">Aktifkan <strong>mode filter konten</strong> di perangkat Anda</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span class="text-gray-700">Letakkan ponsel di luar kamar saat tidur</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span class="text-gray-700">Batasi waktu penggunaan media sosial</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span class="text-gray-700">Buat ruang tidur hanya untuk tidur (jangan bawa laptop)</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="bg-white rounded-xl shadow p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="w-10 h-10 bg-purple-600 text-white rounded-lg flex items-center justify-center font-bold mr-4">3</div>
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900">Membangun Rutinitas Pengganti</h3>
+                            <p class="text-gray-600">Ganti kebiasaan dengan aktivitas positif</p>
+                        </div>
+                    </div>
+                    <div class="ml-14">
+                        <p class="text-gray-700 mb-3">Ketika dorongan muncul, alihkan ke aktivitas lain yang memberikan kepuasan:</p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="text-center p-4 bg-blue-50 rounded-lg">
+                                <i class="fas fa-dumbbell text-blue-600 text-2xl mb-2"></i>
+                                <p class="font-medium">Olahraga 10 menit</p>
+                            </div>
+                            <div class="text-center p-4 bg-green-50 rounded-lg">
+                                <i class="fas fa-book text-green-600 text-2xl mb-2"></i>
+                                <p class="font-medium">Baca buku/chapter</p>
+                            </div>
+                            <div class="text-center p-4 bg-purple-50 rounded-lg">
+                                <i class="fas fa-music text-purple-600 text-2xl mb-2"></i>
+                                <p class="font-medium">Dengarkan podcast/musik</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mt-4"><strong>Tips:</strong> Buat daftar aktivitas pengganti dan tempel di tempat yang mudah dilihat.</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="bg-white rounded-xl shadow p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="w-10 h-10 bg-orange-600 text-white rounded-lg flex items-center justify-center font-bold mr-4">4</div>
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900">Menangani Kemunduran dengan Baik</h3>
+                            <p class="text-gray-600">Kemunduran adalah bagian dari proses</p>
+                        </div>
+                    </div>
+                    <div class="ml-14">
+                        <p class="text-gray-700 mb-3">Jika terjadi kemunduran, tangani dengan self-compassion (kasih sayang pada diri sendiri):</p>
+                        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-4">
+                            <div class="flex">
+                                <i class="fas fa-exclamation-triangle text-yellow-600 mt-1 mr-3"></i>
+                                <div>
+                                    <p class="text-gray-800 font-medium">Ingat: Satu kemunduran tidak menghapus semua progress!</p>
+                                    <p class="text-gray-700 text-sm mt-1">Otak Anda masih menyimpan perubahan-perubahan positif yang sudah Anda bangun.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-700">Setelah kemunduran:</p>
+                        <ol class="list-decimal pl-5 space-y-2 mt-2 text-gray-700">
+                            <li>Jangan menghakimi diri sendiri</li>
+                            <li>Analisis apa yang memicu kemunduran</li>
+                            <li>Rencanakan strategi untuk situasi serupa di masa depan</li>
+                            <li>Lanjutkan perjalanan Anda keesokan harinya</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Challenge Page -->
+        <div id="challenge" class="page hidden">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">30 Hari Challenge</h2>
+                <p class="text-gray-600">Bangun kebiasaan baru selangkah demi selangkah</p>
+            </div>
+
+            <!-- Challenge Overview -->
+            <div class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 mb-8">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-2/3 mb-6 md:mb-0 md:pr-8">
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Challenge 30 Hari</h3>
+                        <p class="text-gray-700 mb-4">
+                            Berkomitmen pada 30 hari perubahan bertahap. Fokus pada pembangunan rutinitas baru 
+                            daripada kesempurnaan. Setiap hari yang bersih adalah kemenangan.
+                        </p>
+                        <div class="flex items-center">
+                            <div class="mr-6">
+                                <div class="text-2xl font-bold text-green-700" id="challenge-days-done">0</div>
+                                <div class="text-sm text-green-600">Hari Selesai</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-bold text-blue-700" id="challenge-days-left">30</div>
+                                <div class="text-sm text-blue-600">Hari Tersisa</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:w-1/3">
+                        <button onclick="markTodayClean()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl text-lg transition duration-300 transform hover:scale-105">
+                            <i class="fas fa-check-circle mr-2"></i> Tandai Hari Ini Bersih
+                        </button>
+                        <button onclick="resetChallenge()" class="w-full border border-gray-300 text-gray-700 py-3 rounded-xl mt-3 hover:bg-gray-50">
+                            <i class="fas fa-redo mr-2"></i> Reset Challenge
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Challenge Grid -->
+            <h3 class="text-xl font-bold text-gray-900 mb-4">Progress Harian</h3>
+            <div class="grid grid-cols-5 md:grid-cols-10 gap-2 mb-8" id="challenge-grid">
+                <!-- Days will be generated by JavaScript -->
+            </div>
+
+            <!-- Daily Tasks -->
+            <div class="bg-white rounded-xl shadow p-6 mb-8">
+                <h3 class="text-xl font-bold text-gray-900 mb-6">Tugas Harian Challenge</h3>
+                <div class="space-y-4" id="daily-tasks">
+                    <!-- Tasks will be generated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Tips Section -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-xl shadow p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Tips Sukses Challenge</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-yellow-500 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Fokus hanya pada hari ini, jangan pikirkan 30 hari sekaligus</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-yellow-500 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Gunakan Tombol Darurat saat dorongan kuat muncul</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-yellow-500 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Rayakan pencapaian kecil setiap minggu</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-yellow-500 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Tidur cukup dan kelola stres dengan baik</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Reward Setelah 30 Hari</h3>
+                    <p class="text-gray-700 mb-4">Setelah menyelesaikan 30 hari, Anda akan mengalami:</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Peningkatan fokus dan konsentrasi</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Pengaturan emosi yang lebih baik</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Motivasi untuk aktivitas produktif</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Rasa percaya diri yang meningkat</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Help Page -->
+        <div id="help" class="page hidden">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">Bantuan & Dukungan</h2>
+                <p class="text-gray-600">Sumber daya dan dukungan yang tersedia untuk Anda</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
+                <div class="p-6">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mr-4">
+                            <i class="fas fa-hands-helping text-green-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Berbicara dengan Orang Dewasa Tepercaya</h3>
+                            <p class="text-gray-600">Langkah penting dalam perjalanan perubahan</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-blue-50 rounded-lg p-5">
+                            <h4 class="font-bold text-blue-800 mb-3">Mengapa Penting Berbicara?</h4>
+                            <p class="text-blue-700 mb-3">Berbagi perjuangan dengan orang yang Anda percaya dapat:</p>
+                            <ul class="space-y-2 text-blue-700">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle mt-1 mr-2"></i>
+                                    <span>Mengurangi rasa isolasi dan kesendirian</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle mt-1 mr-2"></i>
+                                    <span>Memberikan dukungan emosional</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle mt-1 mr-2"></i>
+                                    <span>Membantu Anda tetap bertanggung jawab</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle mt-1 mr-2"></i>
+                                    <span>Memberikan perspektif yang berbeda</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-3">Siapa yang Dapat Diajak Berbicara?</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="border border-gray-200 rounded-lg p-4">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fas fa-user-friends text-purple-600 mr-3"></i>
+                                        <span class="font-medium">Orang Tua</span>
+                                    </div>
+                                    <p class="text-gray-700 text-sm">Jika hubungan memungkinkan, orang tua dapat menjadi sumber dukungan penting.</p>
+                                </div>
+                                <div class="border border-gray-200 rounded-lg p-4">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fas fa-user-graduate text-blue-600 mr-3"></i>
+                                        <span class="font-medium">Guru/Konselor Sekolah</span>
+                                    </div>
+                                    <p class="text-gray-700 text-sm">Profesional di sekolah yang terlatih mendukung siswa.</p>
+                                </div>
+                                <div class="border border-gray-200 rounded-lg p-4">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fas fa-hands text-green-600 mr-3"></i>
+                                        <span class="font-medium">Paman/Bibi/Orang Dewasa Lain</span>
+                                    </div>
+                                    <p class="text-gray-700 text-sm">Keluarga dekat yang Anda rasa nyaman untuk diajak bicara.</p>
+                                </div>
+                                <div class="border border-gray-200 rounded-lg p-4">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fas fa-heart text-red-600 mr-3"></i>
+                                        <span class="font-medium">Tenaga Kesehatan Mental</span>
+                                    </div>
+                                    <p class="text-gray-700 text-sm">Psikolog atau konselor yang profesional dan berlisensi.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-green-50 border-l-4 border-green-500 p-4">
+                            <div class="flex">
+                                <i class="fas fa-lightbulb text-green-600 text-xl mt-1 mr-3"></i>
+                                <div>
+                                    <p class="text-green-800 font-medium">Tips Berbicara dengan Orang Dewasa</p>
+                                    <p class="text-green-700 text-sm mt-1">Mulailah dengan mengatakan "Saya sedang berjuang mengubah suatu kebiasaan dan butuh dukungan." Fokus pada keinginan Anda untuk berubah, bukan pada perasaan malu.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Self-Help Resources -->
+            <div class="bg-white rounded-xl shadow p-6 mb-8">
+                <h3 class="text-xl font-bold text-gray-900 mb-6">Sumber Daya Mandiri</h3>
+                <div class="space-y-6">
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">Praktik Mindfulness</h4>
+                        <p class="text-gray-700 mb-3">Latihan kesadaran penuh dapat membantu mengelola dorongan:</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-wind text-blue-600 mr-2"></i>
+                                    <span class="font-medium">Pernapasan 4-7-8</span>
+                                </div>
+                                <p class="text-gray-700 text-sm">Tarik napas 4 detik, tahan 7 detik, hembuskan 8 detik. Ulangi 4 kali.</p>
+                            </div>
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-mountain text-green-600 mr-2"></i>
+                                    <span class="font-medium">Body Scan</span>
+                                </div>
+                                <p class="text-gray-700 text-sm">Perhatikan sensasi tubuh dari kepala sampai kaki tanpa penilaian.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">Aplikasi Pendukung</h4>
+                        <div class="space-y-3">
+                            <div class="flex items-center p-3 border border-gray-200 rounded-lg">
+                                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-mobile-alt text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Aplikasi Meditasi</p>
+                                    <p class="text-gray-600 text-sm">Seperti Headspace, Calm, atau Meditasi untuk pemula</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center p-3 border border-gray-200 rounded-lg">
+                                <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-tasks text-green-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Aplikasi Habit Tracker</p>
+                                    <p class="text-gray-600 text-sm">Untuk melacak kebiasaan positif yang ingin dibangun</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Important Notice -->
+            <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-6">
+                <div class="flex items-center mb-3">
+                    <i class="fas fa-exclamation-triangle text-yellow-600 text-xl mr-3"></i>
+                    <h3 class="text-lg font-bold text-yellow-800">Penting untuk Diketahui</h3>
+                </div>
+                <p class="text-yellow-700 mb-3">
+                    Website ini adalah alat bantu mandiri dan tidak menggantikan konsultasi dengan tenaga kesehatan mental profesional. 
+                    Jika Anda merasa kesulitan mengelola kebiasaan atau mengalami dampak negatif yang signifikan pada kehidupan sehari-hari, 
+                    disarankan untuk mencari bantuan profesional.
+                </p>
+                <p class="text-yellow-700">
+                    Semua data disimpan secara lokal di perangkat Anda dan tidak dikirim ke server manapun. 
+                    Privasi Anda sepenuhnya terjaga.
+                </p>
+            </div>
+        </div>
+
+        <!-- Emergency Help Modal -->
+        <div id="emergency-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
+            <div class="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900">Bantuan Darurat</h3>
+                        <button onclick="closeEmergency()" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="text-center">
+                            <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-life-ring text-red-600 text-3xl"></i>
+                            </div>
+                            <p class="text-gray-700">Gunakan teknik berikut saat dorongan muncul:</p>
+                        </div>
+                        
+                        <!-- Breathing Exercise -->
+                        <div class="bg-blue-50 rounded-xl p-5">
+                            <h4 class="font-bold text-blue-800 mb-3 flex items-center">
+                                <i class="fas fa-wind mr-2"></i> Latihan Pernapasan 4-7-8
+                            </h4>
+                            <div class="text-center mb-4">
+                                <div class="w-24 h-24 mx-auto relative">
+                                    <div class="absolute inset-0 flex items-center justify-center">
+                                        <div id="breathing-circle" class="w-20 h-20 bg-blue-200 rounded-full breathing-animation flex items-center justify-center">
+                                            <span id="breath-text" class="font-bold text-blue-800">Tarik</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p id="breath-instruction" class="text-blue-700 mt-4">Tarik napas melalui hidung selama 4 detik</p>
+                            </div>
+                            <button onclick="startBreathing()" id="start-breathing" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg">
+                                Mulai Latihan Pernapasan
+                            </button>
+                        </div>
+                        
+                        <!-- Grounding Techniques -->
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-3">Teknik Grounding 5-4-3-2-1</h4>
+                            <p class="text-gray-700 mb-4">Fokus pada indera Anda saat ini:</p>
+                            <ol class="space-y-3 text-gray-700">
+                                <li class="flex items-start">
+                                    <span class="bg-gray-200 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3">5</span>
+                                    <span><strong>5 hal</strong> yang bisa Anda lihat di sekitar</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-gray-200 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3">4</span>
+                                    <span><strong>4 hal</strong> yang bisa Anda sentuh atau rasakan</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-gray-200 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3">3</span>
+                                    <span><strong>3 hal</strong> yang bisa Anda dengar</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-gray-200 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3">2</span>
+                                    <span><strong>2 hal</strong> yang bisa Anda cium</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-gray-200 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3">1</span>
+                                    <span><strong>1 hal</strong> yang bisa Anda rasa (rasa di mulut)</span>
+                                </li>
+                            </ol>
+                        </div>
+                        
+                        <!-- Immediate Actions -->
+                        <div class="bg-green-50 rounded-xl p-5">
+                            <h4 class="font-bold text-green-800 mb-3">Aksi Segera</h4>
+                            <div class="space-y-3">
+                                <button onclick="doImmediateAction('cold')" class="w-full bg-white border border-green-500 text-green-700 py-3 rounded-lg hover:bg-green-50">
+                                    <i class="fas fa-snowflake mr-2"></i> Cuci Muka dengan Air Dingin
+                                </button>
+                                <button onclick="doImmediateAction('walk')" class="w-full bg-white border border-green-500 text-green-700 py-3 rounded-lg hover:bg-green-50">
+                                    <i class="fas fa-walking mr-2"></i> Berjalan 5 Menit di Sekitar
+                                </button>
+                                <button onclick="doImmediateAction('call')" class="w-full bg-white border border-green-500 text-green-700 py-3 rounded-lg hover:bg-green-50">
+                                    <i class="fas fa-phone mr-2"></i> Hubungi Teman/Orang Terpercaya
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center pt-4 border-t">
+                            <p class="text-gray-600 text-sm">Dorongan biasanya memuncak dalam 15-20 menit kemudian berkurang. Bertahanlah!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation for Mobile -->
+        <nav id="mobile-nav" class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around py-3 z-30">
+            <button onclick="showPage('dashboard')" class="flex flex-col items-center text-gray-600">
+                <i class="fas fa-home text-xl"></i>
+                <span class="text-xs mt-1">Dashboard</span>
+            </button>
+            <button onclick="showPage('education')" class="flex flex-col items-center text-gray-600">
+                <i class="fas fa-graduation-cap text-xl"></i>
+                <span class="text-xs mt-1">Edukasi</span>
+            </button>
+            <button onclick="showPage('guide')" class="flex flex-col items-center text-gray-600">
+                <i class="fas fa-map text-xl"></i>
+                <span class="text-xs mt-1">Panduan</span>
+            </button>
+            <button onclick="showPage('challenge')" class="flex flex-col items-center text-gray-600">
+                <i class="fas fa-trophy text-xl"></i>
+                <span class="text-xs mt-1">Challenge</span>
+            </button>
+            <button onclick="showPage('help')" class="flex flex-col items-center text-gray-600">
+                <i class="fas fa-question-circle text-xl"></i>
+                <span class="text-xs mt-1">Bantuan</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Reflections History Modal -->
+    <div id="reflections-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full max-h-[80vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-bold text-gray-900">Riwayat Refleksi</h3>
+                    <button onclick="closeReflections()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <div id="reflections-list" class="space-y-4">
+                    <!-- Reflections will be loaded here -->
+                </div>
+                <div class="mt-6 text-center">
+                    <button onclick="closeReflections()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg">
+                        Tutup
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Application State
+        let user = JSON.parse(localStorage.getItem('pmo_user')) || null;
+        let userData = JSON.parse(localStorage.getItem('pmo_user_data')) || {
+            streak: 0,
+            totalDays: 0,
+            cleanDays: 0,
+            challengeStart: null,
+            challengeProgress: [],
+            reflections: [],
+            lastMotivationDate: null
+        };
+        let isBreathingActive = false;
+        let breathingPhase = 0; // 0: inhale, 1: hold, 2: exhale
+
+        // Motivational Quotes
+        const motivations = [
+            "Konsistensi dalam perubahan kecil menghasilkan transformasi besar dalam hidup.",
+            "Setiap hari bersih adalah kemenangan atas kebiasaan lama Anda.",
+            "Otak Anda dapat berubah - neuroplastisitas adalah kekuatan super Anda.",
+            "Kemunduran bukanlah kegagalan, tetapi bagian dari proses pembelajaran.",
+            "Fokus pada progress, bukan perfection. Setiap langkah berarti.",
+            "Kebiasaan baru membutuhkan waktu, tetapi setiap hari membuatnya lebih kuat.",
+            "Anda lebih kuat dari dorongan sesaat. Ingat tujuan jangka panjang Anda.",
+            "Self-compassion adalah kunci. Perlakukan diri sendiri dengan kebaikan.",
+            "Kontrol diri seperti otot - semakin sering dilatih, semakin kuat.",
+            "Masa depan Anda ditentukan oleh pilihan-pilihan kecil hari ini."
+        ];
+
+        // Daily Challenge Tasks
+        const dailyTasks = [
+            { id: 1, text: "Tidur 7-8 jam malam ini", completed: false },
+            { id: 2, text: "Olahraga minimal 15 menit", completed: false },
+            { id: 3, text: "Minum 8 gelas air putih", completed: false },
+            { id: 4, text: "Meditasi atau latihan pernapasan 5 menit", completed: false },
+            { id: 5, text: "Tulis 3 hal yang disyukuri hari ini", completed: false },
+            { id: 6, text: "Batasi screen time sebelum tidur 1 jam", completed: false },
+            { id: 7, text: "Baca buku atau artikel edukatif 10 menit", completed: false }
+        ];
+
+        // Initialize application
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                document.getElementById('loading').style.display = 'none';
+                
+                // Check if user is logged in
+                if (user) {
+                    updateUserData();
+                    showPage('dashboard');
+                    updateMotivationDate();
+                    generateChallengeGrid();
+                    loadDailyTasks();
+                    updateDesktopNav();
+                } else {
+                    showPage('landing');
+                }
+            }, 1000);
+            
+            // Initialize date for motivation
+            const today = new Date().toDateString();
+            if (userData.lastMotivationDate !== today) {
+                userData.lastMotivationDate = today;
+                saveUserData();
+            }
+            
+            // Set today's motivation
+            document.getElementById('motivation-date').textContent = formatDate(new Date());
+            setRandomMotivation();
+        });
+
+        // Navigation Functions
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            const page = document.getElementById(pageId);
+            if (page) {
+                page.classList.add('active');
+                
+                // Update active state in desktop nav
+                updateDesktopNav();
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function updateDesktopNav() {
+            if (window.innerWidth >= 768) {
+                document.getElementById('desktop-nav').classList.remove('hidden');
+            } else {
+                document.getElementById('desktop-nav').classList.add('hidden');
+            }
+        }
+
+        // Authentication Functions
+        function startJourney() {
+            showPage('auth');
+        }
+
+        function registerUser() {
+            const username = document.getElementById('username').value.trim();
+            const age = document.getElementById('age').value;
+            
+            if (!username) {
+                alert('Harap masukkan nama atau nickname');
+                return;
+            }
+            
+            user = {
+                username: username,
+                age: age,
+                joinedDate: new Date().toISOString()
+            };
+            
+            // Initialize user data
+            userData = {
+                streak: 0,
+                totalDays: 1,
+                cleanDays: 0,
+                challengeStart: null,
+                challengeProgress: [],
+                reflections: [],
+                lastMotivationDate: new Date().toDateString(),
+                dailyTasks: dailyTasks.map(task => ({ ...task }))
+            };
+            
+            localStorage.setItem('pmo_user', JSON.stringify(user));
+            localStorage.setItem('pmo_user_data', JSON.stringify(userData));
+            
+            updateUserData();
+            showPage('dashboard');
+        }
+
+        function logout() {
+            if (confirm('Apakah Anda yakin ingin keluar?')) {
+                user = null;
+                localStorage.removeItem('pmo_user');
+                showPage('landing');
+            }
+        }
+
+        // User Data Functions
+        function updateUserData() {
+            // Update streak calculation
+            const lastCleanDate = localStorage.getItem('pmo_last_clean_date');
+            const today = new Date().toDateString();
+            
+            if (lastCleanDate === today) {
+                // Already marked clean today
+            } else if (lastCleanDate) {
+                const lastDate = new Date(lastCleanDate);
+                const yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+                
+                if (lastDate.toDateString() === yesterday.toDateString()) {
+                    // Consecutive day
+                    userData.streak++;
+                } else if (lastDate.toDateString() !== today) {
+                    // Broken streak
+                    userData.streak = 1;
+                }
+            } else {
+                // First time
+                userData.streak = 1;
+            }
+            
+            // Update display
+            document.getElementById('streak-days').textContent = userData.streak;
+            document.getElementById('total-days').textContent = userData.totalDays;
+            document.getElementById('clean-days').textContent = userData.cleanDays;
+            
+            // Update progress
+            const progressPercent = Math.min(100, Math.round((userData.cleanDays / 30) * 100));
+            document.getElementById('progress-percent').textContent = `${progressPercent}%`;
+            document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+            
+            saveUserData();
+        }
+
+        function saveUserData() {
+            if (user) {
+                localStorage.setItem('pmo_user_data', JSON.stringify(userData));
+            }
+        }
+
+        // Motivation Functions
+        function setRandomMotivation() {
+            const randomIndex = Math.floor(Math.random() * motivations.length);
+            document.getElementById('daily-motivation').textContent = `"${motivations[randomIndex]}"`;
+        }
+
+        function newMotivation() {
+            setRandomMotivation();
+            document.getElementById('motivation-date').textContent = formatDate(new Date());
+        }
+
+        function updateMotivationDate() {
+            const today = new Date().toDateString();
+            if (userData.lastMotivationDate !== today) {
+                setRandomMotivation();
+                userData.lastMotivationDate = today;
+                saveUserData();
+            }
+        }
+
+        // Reflection Functions
+        function saveReflection() {
+            const reflectionText = document.getElementById('daily-reflection').value.trim();
+            if (!reflectionText) {
+                alert('Harap tulis refleksi terlebih dahulu');
+                return;
+            }
+            
+            const reflection = {
+                date: new Date().toISOString(),
+                text: reflectionText
+            };
+            
+            userData.reflections.unshift(reflection); // Add to beginning
+            saveUserData();
+            
+            document.getElementById('daily-reflection').value = '';
+            alert('Refleksi berhasil disimpan!');
+        }
+
+        function viewReflections() {
+            const reflectionsList = document.getElementById('reflections-list');
+            reflectionsList.innerHTML = '';
+            
+            if (userData.reflections.length === 0) {
+                reflectionsList.innerHTML = '<p class="text-center text-gray-500 py-4">Belum ada refleksi yang disimpan</p>';
+            } else {
+                userData.reflections.forEach(reflection => {
+                    const date = new Date(reflection.date);
+                    const reflectionElement = `
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-medium text-gray-700">${formatDate(date)}</span>
+                                <span class="text-sm text-gray-500">${formatTime(date)}</span>
+                            </div>
+                            <p class="text-gray-600">${reflection.text}</p>
+                        </div>
+                    `;
+                    reflectionsList.innerHTML += reflectionElement;
+                });
+            }
+            
+            document.getElementById('reflections-modal').classList.remove('hidden');
+        }
+
+        function closeReflections() {
+            document.getElementById('reflections-modal').classList.add('hidden');
+        }
+
+        // Challenge Functions
+        function generateChallengeGrid() {
+            const grid = document.getElementById('challenge-grid');
+            grid.innerHTML = '';
+            
+            // Initialize challenge if not exists
+            if (!userData.challengeStart) {
+                userData.challengeStart = new Date().toISOString();
+                userData.challengeProgress = Array(30).fill(false);
+                saveUserData();
+            }
+            
+            // Calculate days since start
+            const startDate = new Date(userData.challengeStart);
+            const today = new Date();
+            const daysSinceStart = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+            const daysDone = userData.challengeProgress.filter(day => day).length;
+            const daysLeft = 30 - daysSinceStart;
+            
+            // Update challenge stats
+            document.getElementById('challenge-days-done').textContent = daysDone;
+            document.getElementById('challenge-days-left').textContent = Math.max(0, daysLeft);
+            
+            // Generate day boxes
+            for (let i = 0; i < 30; i++) {
+                const dayNumber = i + 1;
+                let dayClass = 'bg-gray-200';
+                let dayText = 'text-gray-500';
+                
+                if (userData.challengeProgress[i]) {
+                    dayClass = 'challenge-complete text-white';
+                    dayText = 'text-white';
+                } else if (i <= daysSinceStart) {
+                    dayClass = 'bg-white border border-gray-300';
+                }
+                
+                const dayElement = `
+                    <div class="aspect-square rounded-lg flex flex-col items-center justify-center ${dayClass}">
+                        <span class="text-xs font-medium ${dayText}">Hari</span>
+                        <span class="font-bold ${dayText}">${dayNumber}</span>
+                    </div>
+                `;
+                grid.innerHTML += dayElement;
+            }
+        }
+
+        function loadDailyTasks() {
+            const tasksContainer = document.getElementById('daily-tasks');
+            tasksContainer.innerHTML = '';
+            
+            // Load tasks from user data or use default
+            const tasks = userData.dailyTasks || dailyTasks.map(task => ({ ...task }));
+            
+            tasks.forEach(task => {
+                const taskElement = `
+                    <div class="flex items-center p-3 border border-gray-200 rounded-lg">
+                        <button onclick="toggleTask(${task.id})" class="w-6 h-6 rounded-full border-2 ${task.completed ? 'bg-green-500 border-green-500' : 'border-gray-300'} flex items-center justify-center mr-3">
+                            ${task.completed ? '<i class="fas fa-check text-white text-xs"></i>' : ''}
+                        </button>
+                        <span class="${task.completed ? 'text-gray-500 line-through' : 'text-gray-700'}">${task.text}</span>
+                    </div>
+                `;
+                tasksContainer.innerHTML += taskElement;
+            });
+            
+            // Save tasks to user data
+            userData.dailyTasks = tasks;
+            saveUserData();
+        }
+
+        function toggleTask(taskId) {
+            const tasks = userData.dailyTasks || dailyTasks.map(task => ({ ...task }));
+            const taskIndex = tasks.findIndex(task => task.id === taskId);
+            
+            if (taskIndex !== -1) {
+                tasks[taskIndex].completed = !tasks[taskIndex].completed;
+                userData.dailyTasks = tasks;
+                saveUserData();
+                loadDailyTasks();
+            }
+        }
+
+        function markTodayClean() {
+            const today = new Date().toDateString();
+            const lastCleanDate = localStorage.getItem('pmo_last_clean_date');
+            
+            if (lastCleanDate === today) {
+                alert('Hari ini sudah ditandai sebagai hari bersih!');
+                return;
+            }
+            
+            // Update user data
+            userData.cleanDays++;
+            userData.totalDays++;
+            
+            // Update challenge progress
+            const startDate = new Date(userData.challengeStart);
+            const todayDate = new Date();
+            const dayIndex = Math.floor((todayDate - startDate) / (1000 * 60 * 60 * 24));
+            
+            if (dayIndex >= 0 && dayIndex < 30) {
+                userData.challengeProgress[dayIndex] = true;
+            }
+            
+            // Save last clean date
+            localStorage.setItem('pmo_last_clean_date', today);
+            
+            // Reset daily tasks
+            userData.dailyTasks = dailyTasks.map(task => ({ ...task, completed: false }));
+            
+            saveUserData();
+            updateUserData();
+            generateChallengeGrid();
+            loadDailyTasks();
+            
+            alert('Selamat! Hari ini ditandai sebagai hari bersih. Pertahankan konsistensi Anda!');
+        }
+
+        function resetChallenge() {
+            if (confirm('Apakah Anda yakin ingin mereset challenge? Progress 30 hari akan dihapus.')) {
+                userData.challengeStart = new Date().toISOString();
+                userData.challengeProgress = Array(30).fill(false);
+                userData.dailyTasks = dailyTasks.map(task => ({ ...task, completed: false }));
+                saveUserData();
+                generateChallengeGrid();
+                loadDailyTasks();
+                alert('Challenge telah direset. Mulai dari hari 1!');
+            }
+        }
+
+        // Emergency Functions
+        function showEmergencyHelp() {
+            document.getElementById('emergency-modal').classList.remove('hidden');
+        }
+
+        function closeEmergency() {
+            document.getElementById('emergency-modal').classList.add('hidden');
+            stopBreathing();
+        }
+
+        function startBreathing() {
+            if (isBreathingActive) return;
+            
+            isBreathingActive = true;
+            const button = document.getElementById('start-breathing');
+            button.textContent = 'Berhenti Latihan';
+            button.onclick = stopBreathing;
+            button.className = 'w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg';
+            
+            const circle = document.getElementById('breathing-circle');
+            const text = document.getElementById('breath-text');
+            const instruction = document.getElementById('breath-instruction');
+            
+            breathingPhase = 0;
+            let count = 4;
+            
+            const breathingCycle = () => {
+                if (!isBreathingActive) return;
+                
+                switch (breathingPhase) {
+                    case 0: // Inhale
+                        text.textContent = count;
+                        instruction.textContent = `Tarik napas... ${count}`;
+                        count--;
+                        
+                        if (count < 0) {
+                            breathingPhase = 1;
+                            count = 7;
+                        }
+                        break;
+                        
+                    case 1: // Hold
+                        text.textContent = count;
+                        instruction.textContent = `Tahan napas... ${count}`;
+                        count--;
+                        
+                        if (count < 0) {
+                            breathingPhase = 2;
+                            count = 8;
+                        }
+                        break;
+                        
+                    case 2: // Exhale
+                        text.textContent = count;
+                        instruction.textContent = `Hembuskan napas... ${count}`;
+                        count--;
+                        
+                        if (count < 0) {
+                            breathingPhase = 0;
+                            count = 4;
+                        }
+                        break;
+                }
+                
+                // Continue cycle
+                setTimeout(breathingCycle, 1000);
+            };
+            
+            breathingCycle();
+        }
+
+        function stopBreathing() {
+            isBreathingActive = false;
+            const button = document.getElementById('start-breathing');
+            button.textContent = 'Mulai Latihan Pernapasan';
+            button.onclick = startBreathing;
+            button.className = 'w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg';
+            
+            document.getElementById('breath-text').textContent = 'Tarik';
+            document.getElementById('breath-instruction').textContent = 'Tarik napas melalui hidung selama 4 detik';
+        }
+
+        function doImmediateAction(action) {
+            let message = '';
+            
+            switch(action) {
+                case 'cold':
+                    message = 'Air dingin membantu mengaktifkan sistem saraf parasimpatis yang menenangkan.';
+                    break;
+                case 'walk':
+                    message = 'Berjalan membantu mengalihkan pikiran dan mengeluarkan energi dengan sehat.';
+                    break;
+                case 'call':
+                    message = 'Berbicara dengan seseorang dapat mengalihkan fokus dan memberikan dukungan.';
+                    break;
+            }
+            
+            alert(`Lakukan ini sekarang: ${message}\n\nDorongan akan berkurang dalam beberapa menit.`);
+        }
+
+        // Utility Functions
+        function formatDate(date) {
+            return date.toLocaleDateString('id-ID', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        function formatTime(date) {
+            return date.toLocaleTimeString('id-ID', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // Responsive nav update on resize
+        window.addEventListener('resize', updateDesktopNav);
+    </script>
+</body>
+</html>
